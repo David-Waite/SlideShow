@@ -47,28 +47,30 @@
 }
 
 .rightBtn {
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translateY(-50%);
   cursor: pointer;
-
+  position: absolute;
   z-index: 2;
   font-size: 40px;
   color: white;
-  padding: 40px 0 40px 40px;
+  right: 0;
   opacity: 0.3;
   transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translate(-50%, -50%);
+  background-color: green;
 }
 
 .leftBtn {
   position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
   cursor: pointer;
   z-index: 2;
-  padding: 40px 40px 40px 0;
+  top: 50%;
+
+  background-color: green;
+  left: 20px;
+  transform: translate(-50%, -50%);
   font-size: 40px;
   color: white;
   opacity: 0.3;

@@ -80,7 +80,7 @@ export default function SlideShow({ slides }) {
   function handleLeftButton() {
     setTrasitionTime(transitionTimeMaster);
     setIndex((prev) => {
-      if (prev <= 1) {
+      if (prev === 1) {
         setSkipTo("end");
 
         return 0;

@@ -63,7 +63,7 @@ export default function SlideShow({ slides }) {
   function handleRightButton() {
     setTrasitionTime(transitionTimeMaster);
     setIndex((prev) => {
-      if (prev >= imagesUpdated.length - 2) {
+      if ((prev) => imagesUpdated.length - 2) {
         setSkipTo("start");
 
         return imagesUpdated.length - 1;
@@ -80,7 +80,7 @@ export default function SlideShow({ slides }) {
   function handleLeftButton() {
     setTrasitionTime(transitionTimeMaster);
     setIndex((prev) => {
-      if (prev <= 1) {
+      if (prev === 1) {
         setSkipTo("end");
 
         return 0;

@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "SlideShow",
-  description: "Slide show component",
+  description: "Slide show compontent",
 };
 
 export default function RootLayout({ children }) {

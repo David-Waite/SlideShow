@@ -49,8 +49,6 @@
 .rightBtn {
   position: absolute;
   top: 50%;
-  right: 0px;
-  transform: translateY(-50%);
   cursor: pointer;
 
   z-index: 2;
@@ -59,6 +57,9 @@
   padding: 40px 0 40px 40px;
   opacity: 0.3;
   transition: 0.5s;
+
+  right: 0px;
+  transform: translateY(-50%);
 }
 
 .leftBtn {

@@ -60,6 +60,7 @@ export default function SlideShow({ slides }) {
 
   // function for moving slides to the right
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleRightButton() {
     setTrasitionTime(transitionTimeMaster);
     setIndex((prev) => {
