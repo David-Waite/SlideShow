@@ -1,30 +1,9 @@
-.carousel {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
 .slideShowContainer {
   position: relative;
   width: 100%;
   height: 500px;
-
-  scroll-snap-type: x mandatory;
-  overflow-x: scroll;
   overflow-y: hidden;
-  display: flex;
-  align-items: center;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* .slideShowContainer::-webkit-scrollbar {
-  display: none;
-} */
-
-.container {
-  position: relative;
-  width: 100%;
-  height: 500px;
+  overflow-x: scroll;
 }
 
 .dimmer {
@@ -37,7 +16,6 @@
 }
 
 .slideContainer {
-  scroll-snap-align: center;
   height: 500px;
   width: 100%;
   position: absolute;

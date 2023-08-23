@@ -16,6 +16,7 @@ export default function SlideShow({ slides }) {
   const [scrollBehavior, setScrollBehavior] = useState("auto");
   const [firstScroll, setFirstScroll] = useState(false);
   const slideContainerRef = useRef(null);
+  const [indicatorStyle, setIndicator] = useState("");
 
   // adding IDs to each of the inputs starting from 1
   let imagesUpdated = slides.map((item) => {

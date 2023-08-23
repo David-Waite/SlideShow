@@ -54,18 +54,18 @@ export default function SlideShow({ slides }) {
   }
 
   useEffect(() => {
-    if (
-      slideContainerRef.current.scrollLeft ===
-      slideContainerRef.current.children[0].clientWidth * 5
-    ) {
-      slideContainerRef.current.scrollLeft =
-        slideContainerRef.current.children[0].clientWidth;
-      setScrollBehavior("smooth");
-      return;
-    }
+    // if (
+    //   slideContainerRef.current.scrollLeft ===
+    //   slideContainerRef.current.children[0].clientWidth * 5
+    // ) {
+    //   slideContainerRef.current.scrollLeft =
+    //     slideContainerRef.current.children[0].clientWidth;
+    //   setScrollBehavior("smooth");
+    //   return;
+    // }
     if (slideContainerRef.current.scrollLeft === 0 && firstScroll === true) {
       slideContainerRef.current.scrollLeft =
-        slideContainerRef.current.children[0].clientWidth * 4;
+        slideContainerRef.current.children[0].clientWidth * 5;
     }
   }, [scrollBehavior, firstScroll]);
 
@@ -124,14 +124,7 @@ export default function SlideShow({ slides }) {
   // creates the dots for each of the elements
   const selectElements = slides.map((image) => {
     const postion = slides.findIndex((element) => element === image) + 1;
-    let style = "grey";
-    if (slideContainerRef.current) {
-      style =
-        slideContainerRef.current.scrollLeft ===
-        slideContainerRef.current.children[0].clientWidth * postion
-          ? "white"
-          : "grey";
-    }
+
     return (
       <div
         className={styles.selectElement}
@@ -141,9 +134,16 @@ export default function SlideShow({ slides }) {
           setTrasitionTime(transitionTimeMaster);
           setIndex(postion);
         }}
-        style={{
-          backgroundColor: style,
-        }}
+        // style={{
+        //   backgroundColor:
+        //     postion === index
+        //       ? "white"
+        //       : index === imagesUpdated.length - 1 && postion === 1
+        //       ? "white"
+        //       : index === 0 && postion === imagesUpdated.length - 2
+        //       ? "white"
+        //       : "grey",
+        // }}
       ></div>
     );
   });
@@ -156,7 +156,6 @@ export default function SlideShow({ slides }) {
       <div className={styles.leftBtn} onClick={handleLeftButton}>
         <SlArrowLeft />
       </div>
-      <div className={styles.selectContainer}>{selectElements}</div>
       <div
         ref={slideContainerRef}
         onScroll={handleScroll}

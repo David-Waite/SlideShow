@@ -124,14 +124,11 @@ export default function SlideShow({ slides }) {
   // creates the dots for each of the elements
   const selectElements = slides.map((image) => {
     const postion = slides.findIndex((element) => element === image) + 1;
-    let style = "grey";
-    if (slideContainerRef.current) {
-      style =
-        slideContainerRef.current.scrollLeft ===
-        slideContainerRef.current.children[0].clientWidth * postion
-          ? "white"
-          : "grey";
-    }
+    const style =
+      slideContainerRef.current.scrollLeft ===
+      slideContainerRef.current.children[0].clientWidth
+        ? "white"
+        : "grey";
     return (
       <div
         className={styles.selectElement}
@@ -142,7 +139,11 @@ export default function SlideShow({ slides }) {
           setIndex(postion);
         }}
         style={{
-          backgroundColor: style,
+          backgroundColor:
+            slideContainerRef.current.scrollLeft ===
+            slideContainerRef.current.children[0].clientWidth
+              ? "white"
+              : "grey",
         }}
       ></div>
     );

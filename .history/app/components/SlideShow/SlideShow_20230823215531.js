@@ -9,10 +9,6 @@ const invervalTimeMaster = 3000; // Milliseconds
 const transitionTimeMaster = 1000; // Milliseconds
 
 export default function SlideShow({ slides }) {
-  useEffect(() => {
-    slideContainerRef.current.scrollLeft =
-      slideContainerRef.current.children[0].clientWidth;
-  }, []);
   const [scrollBehavior, setScrollBehavior] = useState("auto");
   const [firstScroll, setFirstScroll] = useState(false);
   const slideContainerRef = useRef(null);
@@ -34,6 +30,36 @@ export default function SlideShow({ slides }) {
     id: imagesUpdated.length,
   });
 
+  //EXAMPLE input four slides labled 1, 2, 3, 4. Array would now look like 4, 1, 2, 3, 4, 1
+
+  //Displays the next slide at the set inveralTime
+  // useEffect(() => {
+  //   const interval = setInterval(() => handleRightButton(), invervalTimeMaster);
+
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [index, handleRightButton]);
+
+  // When the slides are ready to be looped will triger useEffect that
+  // will set the trasition time to 0 and move the slide to the correct position
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (skipTo === "start") {
+  //       setTrasitionTime(0);
+  //       setIndex(1);
+  //     }
+  //     if (skipTo === "end") {
+  //       setTrasitionTime(0);
+  //       setIndex(imagesUpdated.length - 2);
+  //     }
+  //   }, transitionTimeMaster);
+  //   return () => clearTimeout(timer);
+  // }, [skipTo, imagesUpdated]);
+
+  // function for moving slides to the right
+
   function handleRightButton() {
     if (
       slideContainerRef.current.scrollLeft >=
@@ -47,46 +73,27 @@ export default function SlideShow({ slides }) {
       slideContainerRef.current.children[0].clientWidth;
   }
 
+  // function handleRightButton() {
+  //   //     setTrasitionTime(transitionTimeMaster);
+  //   //     setIndex((prev) => {
+  //   //       if (prev >= imagesUpdated.length - 2) {
+  //   //         setSkipTo("start");
+
+  //   //         return imagesUpdated.length - 1;
+  //   //       } else {
+  //   //         setSkipTo("");
+
+  //   //         return prev + 1;
+  //   //       }
+  //   //     });
+  //   //   }
+
+  // function for moving slides to the left
+
   function handleLeftButton() {
     slideContainerRef.current.scrollLeft =
       slideContainerRef.current.scrollLeft -
       slideContainerRef.current.children[0].clientWidth;
-  }
-
-  useEffect(() => {
-    if (
-      slideContainerRef.current.scrollLeft ===
-      slideContainerRef.current.children[0].clientWidth * 5
-    ) {
-      slideContainerRef.current.scrollLeft =
-        slideContainerRef.current.children[0].clientWidth;
-      setScrollBehavior("smooth");
-      return;
-    }
-    if (slideContainerRef.current.scrollLeft === 0 && firstScroll === true) {
-      slideContainerRef.current.scrollLeft =
-        slideContainerRef.current.children[0].clientWidth * 4;
-    }
-  }, [scrollBehavior, firstScroll]);
-
-  function handleScroll() {
-    if (firstScroll === false) {
-      setFirstScroll(true);
-    }
-    if (scrollBehavior === "auto") {
-      setScrollBehavior("smooth");
-    }
-    if (
-      slideContainerRef.current.scrollLeft >=
-      slideContainerRef.current.children[0].clientWidth * 5
-    ) {
-      setScrollBehavior("auto");
-      return;
-    }
-
-    if (slideContainerRef.current.scrollLeft == 0) {
-      setScrollBehavior("auto");
-    }
   }
 
   // Mapping over the array to create slides
@@ -120,18 +127,47 @@ export default function SlideShow({ slides }) {
       </div>
     );
   });
+  useEffect(() => {
+    if (
+      slideContainerRef.current.scrollLeft ===
+      slideContainerRef.current.children[0].clientWidth * 5
+    ) {
+      slideContainerRef.current.scrollLeft =
+        slideContainerRef.current.children[0].clientWidth;
+      setScrollBehavior("smooth");
+      return;
+    }
+    if (slideContainerRef.current.scrollLeft === 0 && firstScroll) {
+      slideContainerRef.current.scrollLeft =
+        slideContainerRef.current.children[0].clientWidth * 4;
+    }
+    if ((slideContainerRef.current.scrollLeft = 1)) {
+      slideContainerRef.current.scrollLeft =
+        slideContainerRef.current.children[0].clientWidth * 4;
+    }
+  }, [scrollBehavior, firstScroll]);
+
+  function handleScroll() {
+    if (scrollBehavior === "auto") {
+      setScrollBehavior("smooth");
+    }
+    if (
+      slideContainerRef.current.scrollLeft >=
+      slideContainerRef.current.children[0].clientWidth * 5
+    ) {
+      setScrollBehavior("auto");
+      return;
+    }
+
+    if (slideContainerRef.current.scrollLeft == 0) {
+      setScrollBehavior("auto");
+    }
+  }
 
   // creates the dots for each of the elements
   const selectElements = slides.map((image) => {
     const postion = slides.findIndex((element) => element === image) + 1;
-    let style = "grey";
-    if (slideContainerRef.current) {
-      style =
-        slideContainerRef.current.scrollLeft ===
-        slideContainerRef.current.children[0].clientWidth * postion
-          ? "white"
-          : "grey";
-    }
+
     return (
       <div
         className={styles.selectElement}
@@ -141,9 +177,16 @@ export default function SlideShow({ slides }) {
           setTrasitionTime(transitionTimeMaster);
           setIndex(postion);
         }}
-        style={{
-          backgroundColor: style,
-        }}
+        // style={{
+        //   backgroundColor:
+        //     postion === index
+        //       ? "white"
+        //       : index === imagesUpdated.length - 1 && postion === 1
+        //       ? "white"
+        //       : index === 0 && postion === imagesUpdated.length - 2
+        //       ? "white"
+        //       : "grey",
+        // }}
       ></div>
     );
   });
@@ -156,7 +199,6 @@ export default function SlideShow({ slides }) {
       <div className={styles.leftBtn} onClick={handleLeftButton}>
         <SlArrowLeft />
       </div>
-      <div className={styles.selectContainer}>{selectElements}</div>
       <div
         ref={slideContainerRef}
         onScroll={handleScroll}

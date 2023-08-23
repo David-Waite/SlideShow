@@ -129,8 +129,8 @@ export default function SlideShow({ slides }) {
       style =
         slideContainerRef.current.scrollLeft ===
         slideContainerRef.current.children[0].clientWidth * postion
-          ? "white"
-          : "grey";
+          ? "grey"
+          : "white";
     }
     return (
       <div

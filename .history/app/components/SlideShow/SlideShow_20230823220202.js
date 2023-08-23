@@ -124,14 +124,7 @@ export default function SlideShow({ slides }) {
   // creates the dots for each of the elements
   const selectElements = slides.map((image) => {
     const postion = slides.findIndex((element) => element === image) + 1;
-    let style = "grey";
-    if (slideContainerRef.current) {
-      style =
-        slideContainerRef.current.scrollLeft ===
-        slideContainerRef.current.children[0].clientWidth * postion
-          ? "white"
-          : "grey";
-    }
+
     return (
       <div
         className={styles.selectElement}
@@ -141,9 +134,16 @@ export default function SlideShow({ slides }) {
           setTrasitionTime(transitionTimeMaster);
           setIndex(postion);
         }}
-        style={{
-          backgroundColor: style,
-        }}
+        // style={{
+        //   backgroundColor:
+        //     postion === index
+        //       ? "white"
+        //       : index === imagesUpdated.length - 1 && postion === 1
+        //       ? "white"
+        //       : index === 0 && postion === imagesUpdated.length - 2
+        //       ? "white"
+        //       : "grey",
+        // }}
       ></div>
     );
   });
